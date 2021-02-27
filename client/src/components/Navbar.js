@@ -1,11 +1,10 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
 const NavBarComponent = () => {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="dark" variant="dark">
       <Navbar.Brand href="/">Expense Tracking</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
@@ -14,6 +13,9 @@ const NavBarComponent = () => {
           <Nav.Link href="/create">Create</Nav.Link>
           <Nav.Link href="/edit">Edit</Nav.Link>
           <Nav.Link href="/delete">Delete</Nav.Link>
+        </Nav>
+        <Nav>
+          <Nav.Link href="/logout">Log out</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
