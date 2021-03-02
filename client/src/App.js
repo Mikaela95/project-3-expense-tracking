@@ -7,13 +7,14 @@ import { ExpenseList } from "./components/ExpenseList.js";
 import { EditExpense } from "./components/EditExpense.js";
 import { CreateExpense } from "./components/CreateExpense.js";
 import { DeleteExpense } from "./components/DeleteExpense.js";
+import { ExpenseListNew } from "./components/ExpensesListNew.js";
 
 const App = () => {
   return (
     <Router>
       <div className="App">
         <NavBarComponent />
-        <Jumbotron style={{marginBottom: '0px'}}>
+        <Jumbotron style={{ marginBottom: "0px" }}>
           <h1>Categories</h1>
           <Route path="/" exact component={ExpenseList} />
         </Jumbotron>
@@ -26,6 +27,32 @@ const App = () => {
     </Router>
   );
 };
+
+// const category = {
+//   title: "Food",
+//   id: "1"
+
+// }
+// const App = () => {
+
+//   const fetchInfo = (categoryID) => {
+//     // actually fetch stuff here instead
+//     return [{
+//     id: 1,
+//     amt: 100
+//       }]
+//   }
+//   return (
+//     <Router>
+//       <div className="App">
+//         <ExpenseListNew categoryTitle={category.title} categoryId={category.id} expenses={[{
+//           id: 1,
+//           amt: 10
+//         }]}></ExpenseListNew>
+//       </div>
+//     </Router>
+//   );
+// };
 
 export { App };
 
