@@ -5,9 +5,8 @@ import { NavBarComponent } from "./components/Navbar.js";
 import { NavbarFooter } from "./components/NavbarFooter.js";
 import { ExpenseList } from "./components/ExpenseList.js";
 import { EditExpense } from "./components/EditExpense.js";
-import { CreateExpense } from "./components/CreateExpense.js";
+import { CategoryItem } from "./components/CategoryItem.js";
 import { DeleteExpense } from "./components/DeleteExpense.js";
-import { ExpenseListNew } from "./components/ExpensesListNew.js";
 
 const App = () => {
   return (
@@ -19,7 +18,7 @@ const App = () => {
           <Route path="/" exact component={ExpenseList} />
         </Jumbotron>
         <br />
-        <Route path="/create" component={CreateExpense} />
+        <Route path="/category/:id" component={CategoryItem} />
         <Route path="/edit" component={EditExpense} />
         <Route path="/delete" component={DeleteExpense} />
         <NavbarFooter />
