@@ -9,7 +9,6 @@ const NavbarFooter = () => {
       expand="lg"
       bg="dark"
       variant="dark"
-      fixed="bottom"
     >
       {/* <Navbar.Brand>Navbar</Navbar.Brand> */}
     </Navbar>

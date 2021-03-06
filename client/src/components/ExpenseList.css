@@ -4,4 +4,10 @@
 
 .categoryCard:hover {
   opacity: 0.5;
+  color: black;
+  text-decoration-color: black;
+}
+
+Card.Body:hover {
+  color: black;
 }
