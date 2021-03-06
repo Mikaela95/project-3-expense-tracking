@@ -62,8 +62,8 @@ router.delete("/delete-expense/:id", (req, res) => {
 });
 
 // Get all expenses for a categorySchema
-router.get("/one-category/all-expenses/:id", (req, res) => {
-  CategoryApi.findById(req.params.id)
+router.get("/one-category/all-expenses/:categoryId", (req, res) => {
+  ExpenseApi.find({categoryId: req.params.categoryId})
     .then((category) => {
       res.send(category);
     })

@@ -1,43 +1,82 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import Card from "react-bootstrap/Card";
-import CardGroup from "react-bootstrap/CardGroup";
+import Table from "react-bootstrap/Table";
 
 const CategoryItem = ({ match }) => {
+  // Category
+  const [category, setCategory] = useState([]);
   // Fetch the category -> currently all
   useEffect(() => {
-    fetchItem();
+    fetchCategory();
     console.log(match);
   }, []);
 
-  // Category
-  const [items, setItem] = useState([]);
-
   //Expenses
-  const [expense, setExpense] = useState([]);
+  const [expenses, setExpense] = useState([]);
+
+  useEffect(() => {
+    fetchExpenses();
+  }, []);
 
   // Get the category from the id passed from Link to
-  const fetchItem = async () => {
-    const fetchItem = await fetch(
+  const fetchCategory = async () => {
+    const fetchCategory = await fetch(
       `http://localhost:4000/api/categories/one-category/${match.params.id}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       }
     );
-
-    const items = await fetchItem.json();
-    setItem(items);
-    console.log(items);
+    const category = await fetchCategory.json();
+    setCategory(category);
+    console.log(category);
   };
 
   //Get the expenses associated with the category
+  const fetchExpenses = async () => {
+    const fetchExpenses = await fetch(
+      `http://localhost:4000/api/expenses/one-category/all-expenses/${match.params.id}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    const expenses = await fetchExpenses.json();
+    setExpense(expenses);
+    console.log("This is an expense item", expenses[0]);
+  };
+
+  const renderExpenseItems = () => {
+    return expenses.map((expense) => (
+      <tr>
+        <td>{expense.name}</td>
+        <td>{expense.projectedExpense}</td>
+        <td>{expense.actualExpense}</td>
+        <td>difference value</td>
+        <td>edit some value</td>
+      </tr>
+    ));
+  };
 
   return (
     <div>
-      <h1>Category: {items.name}</h1>
-      <p>{items.description}</p>
+      <h1>Category: {category.name}</h1>
+      <p>{category.description}</p>
+      <div>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Expense Item</th>
+              <th>Estimated</th>
+              <th>Actual</th>
+              <th>Difference</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>{renderExpenseItems()}</tbody>
+        </Table>
+      </div>
     </div>
   );
 };
