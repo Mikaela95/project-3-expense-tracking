@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Jumbotron from "react-bootstrap/Jumbotron";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
+import * as Icon from "react-bootstrap-icons";
 
 const CategoryItem = ({ match }) => {
   // Category
@@ -44,7 +45,6 @@ const CategoryItem = ({ match }) => {
     );
     const expenses = await fetchExpenses.json();
     setExpense(expenses);
-    console.log("This is an expense item", expenses[0]);
   };
 
   const renderExpenseItems = () => {
@@ -54,7 +54,12 @@ const CategoryItem = ({ match }) => {
         <td>{expense.projectedExpense}</td>
         <td>{expense.actualExpense}</td>
         <td>difference value</td>
-        <td>edit some value</td>
+        <Button variant="warning" style={{margin: '0rem 1rem'}}>
+          <Icon.Pencil inverted />
+        </Button>
+        <Button variant="danger">
+          <Icon.Trash inverted />
+        </Button>
       </tr>
     ));
   };
@@ -63,6 +68,12 @@ const CategoryItem = ({ match }) => {
     <div>
       <h1>Category: {category.name}</h1>
       <p>{category.description}</p>
+      <p>
+        Add a new expense item{" "}
+        <Button variant="primary">
+          <Icon.Plus />
+        </Button>
+      </p>
       <div>
         <Table striped bordered hover>
           <thead>
@@ -71,7 +82,7 @@ const CategoryItem = ({ match }) => {
               <th>Estimated</th>
               <th>Actual</th>
               <th>Difference</th>
-              <th>Edit</th>
+              <th>Amendments</th>
             </tr>
           </thead>
           <tbody>{renderExpenseItems()}</tbody>
