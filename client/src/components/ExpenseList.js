@@ -33,15 +33,11 @@ const ExpenseList = () => {
       <CardGroup>
         {items.map((item) => (
           <Card className="categoryCard" key={item._id}>
-            <Link to={`/category/${item.name}`}>
+            <Link to={`/category/${item._id}`}>
               <Card.Img variant="top" src={`../images/${item.name}.jpg`} />
               <Card.Body>
                 <Card.Title>{item.name}</Card.Title>
-                <Card.Text>
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </Card.Text>
+                <Card.Text>{item.description}</Card.Text>
               </Card.Body>
               <Card.Footer>
                 <small className="text-muted">Last updated 3 mins ago</small>

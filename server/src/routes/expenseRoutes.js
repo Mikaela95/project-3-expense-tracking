@@ -4,14 +4,14 @@ const ExpenseApi = require("../models/ExpenseModel");
 const router = express.Router();
 
 // Does a session exist for a user
-router.use((req, res, next) => {
+/* router.use((req, res, next) => {
   console.log("request user router session:", req.session);
   if (!req.session.user) {
     res.status(404).send("Please login");
   } else {
     next();
   }
-});
+}); */
 
 // Health check
 router.get("/_health", (req, res) => {
@@ -58,6 +58,17 @@ router.delete("/delete-expense/:id", (req, res) => {
     .catch(() => {
       console.log("Something went wrong!");
       res.status(404).send("Expense item not found");
+    });
+});
+
+// Get all expenses for a categorySchema
+router.get("/one-category/all-expenses/:id", (req, res) => {
+  CategoryApi.findById(req.params.id)
+    .then((category) => {
+      res.send(category);
+    })
+    .catch((error) => {
+      res.status(500).send(error.message);
     });
 });
 

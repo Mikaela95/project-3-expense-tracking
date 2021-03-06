@@ -8,12 +8,12 @@ const expenseSchema = new Schema({
   actualExpense: Number,
   categoryId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "category",
-  },
+    ref: "categories",
+  }/* ,
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user"
-  }
+  } */
 });
 
 const expenseModel = mongoose.model("Expense", expenseSchema);

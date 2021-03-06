@@ -14,13 +14,14 @@ const App = () => {
       <div className="App">
         <NavBarComponent />
         <Jumbotron style={{ marginBottom: "0px" }}>
-          <h1>Categories</h1>
+          {/* <h1>Categories</h1> */}
           <Route path="/" exact component={ExpenseList} />
+          <Route path="/category/:id" component={CategoryItem} />
+          <Route path="/edit" component={EditExpense} />
+          <Route path="/delete" component={DeleteExpense} />
         </Jumbotron>
         <br />
-        <Route path="/category/:id" component={CategoryItem} />
-        <Route path="/edit" component={EditExpense} />
-        <Route path="/delete" component={DeleteExpense} />
+
         <NavbarFooter />
       </div>
     </Router>

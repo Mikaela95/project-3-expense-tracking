@@ -4,17 +4,23 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 
-const CategoryItem = () => {
+const CategoryItem = ({ match }) => {
   // Fetch the category -> currently all
   useEffect(() => {
     fetchItem();
+    console.log(match);
   }, []);
 
+  // Category
   const [items, setItem] = useState([]);
 
+  //Expenses
+  const [expense, setExpense] = useState([]);
+
+  // Get the category from the id passed from Link to
   const fetchItem = async () => {
     const fetchItem = await fetch(
-      "http://localhost:4000/api/categories/all-categories",
+      `http://localhost:4000/api/categories/one-category/${match.params.id}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -24,32 +30,14 @@ const CategoryItem = () => {
     const items = await fetchItem.json();
     setItem(items);
     console.log(items);
-    console.log(items[0]);
   };
+
+  //Get the expenses associated with the category
 
   return (
     <div>
-      <CardGroup>
-        
-        {items.map((item) => (
-          <Card className="categoryCard" key={item._id}>
-            <Link to={`/category/${item.name}`}>
-              <Card.Img variant="top" src={`../images/${item.name}.jpg`} />
-              <Card.Body>
-                <Card.Title>{item.name}</Card.Title>
-                <Card.Text>
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </Card.Text>
-              </Card.Body>
-              <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </Card.Footer>
-            </Link>
-          </Card>
-        ))}
-      </CardGroup>
+      <h1>Category: {items.name}</h1>
+      <p>{items.description}</p>
     </div>
   );
 };
