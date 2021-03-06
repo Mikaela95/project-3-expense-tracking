@@ -45,4 +45,15 @@ router.patch("/delete-category/:id", (req, res) => {
     });
 });
 
+// Get one category
+router.get("/one-category/:id", (req, res) => {
+  CategoryApi.findById(req.params.id)
+    .then((category) => {
+      res.send(category);
+    })
+    .catch((error) => {
+      res.status(500).send(error.message);
+    });
+});
+
 module.exports = router;
