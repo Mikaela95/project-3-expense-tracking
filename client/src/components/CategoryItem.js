@@ -4,10 +4,12 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import * as Icon from "react-bootstrap-icons";
 import { AddExpense } from "./AddExpense";
+import { DeleteExpense } from "./DeleteExpense";
 
 const CategoryItem = ({ match }) => {
   const [category, setCategory] = useState([]);
-  const [active, setActive] = useState();
+  const [active, setActive] = useState("");
+  const [expenseData, setExpenseData] = useState({id: ''});
 
   useEffect(() => {
     fetchCategory();
@@ -43,6 +45,13 @@ const CategoryItem = ({ match }) => {
     );
     const expenses = await fetchExpenses.json();
     setExpense(expenses);
+    console.log(expenses);
+  };
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    setActive("delete");
+    setExpenseData({id: e.currentTarget.value});
   };
 
   const renderExpenseItems = () => {
@@ -52,10 +61,14 @@ const CategoryItem = ({ match }) => {
         <td>{expense.projectedExpense}</td>
         <td>{expense.actualExpense}</td>
         <td>difference value</td>
-        <Button variant="warning" style={{ margin: "0rem 1rem" }} o>
+        <Button
+          variant="warning"
+          style={{ margin: "0rem 1rem" }}
+          onClick={() => setActive("edit")}
+        >
           <Icon.Pencil />
         </Button>
-        <Button variant="danger" expense={"test"}>
+        <Button value={expense._id} variant="danger" onClick={handleDelete}>
           <Icon.Trash inverted />
         </Button>
       </tr>
@@ -68,12 +81,20 @@ const CategoryItem = ({ match }) => {
       <p>{category.description}</p>
       <div>
         Add a new expense item{" "}
-        <Button variant="primary" onClick={() => setActive('add')}>
+        <Button variant="primary" onClick={() => setActive("add")}>
           <Icon.Plus />
         </Button>
       </div>
       <div>
-        {active === 'add' && <AddExpense data={match.params.id}/>}
+        {/* Need to reset the value of active after each button click */}
+        {active === "add" && <AddExpense data={match.params.id} />}
+        {active === "delete" && (
+          <DeleteExpense
+            data={match.params.id}
+            setModalShow={true}
+            expenseData={expenseData}
+          />
+        )}
         <Table striped bordered hover>
           <thead>
             <tr>
