@@ -3,24 +3,23 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import * as Icon from "react-bootstrap-icons";
+import { AddExpense } from "./AddExpense";
 
 const CategoryItem = ({ match }) => {
-  // Category
   const [category, setCategory] = useState([]);
-  // Fetch the category -> currently all
+  const [active, setActive] = useState();
+
   useEffect(() => {
     fetchCategory();
     console.log(match);
   }, []);
 
-  //Expenses
   const [expenses, setExpense] = useState([]);
 
   useEffect(() => {
     fetchExpenses();
   }, []);
 
-  // Get the category from the id passed from Link to
   const fetchCategory = async () => {
     const fetchCategory = await fetch(
       `http://localhost:4000/api/categories/one-category/${match.params.id}`,
@@ -34,7 +33,6 @@ const CategoryItem = ({ match }) => {
     console.log(category);
   };
 
-  //Get the expenses associated with the category
   const fetchExpenses = async () => {
     const fetchExpenses = await fetch(
       `http://localhost:4000/api/expenses/one-category/all-expenses/${match.params.id}`,
@@ -54,10 +52,10 @@ const CategoryItem = ({ match }) => {
         <td>{expense.projectedExpense}</td>
         <td>{expense.actualExpense}</td>
         <td>difference value</td>
-        <Button variant="warning" style={{margin: '0rem 1rem'}}>
-          <Icon.Pencil inverted />
+        <Button variant="warning" style={{ margin: "0rem 1rem" }} o>
+          <Icon.Pencil />
         </Button>
-        <Button variant="danger">
+        <Button variant="danger" expense={"test"}>
           <Icon.Trash inverted />
         </Button>
       </tr>
@@ -68,13 +66,14 @@ const CategoryItem = ({ match }) => {
     <div>
       <h1>Category: {category.name}</h1>
       <p>{category.description}</p>
-      <p>
+      <div>
         Add a new expense item{" "}
-        <Button variant="primary">
+        <Button variant="primary" onClick={() => setActive('add')}>
           <Icon.Plus />
         </Button>
-      </p>
+      </div>
       <div>
+        {active === 'add' && <AddExpense data={match.params.id}/>}
         <Table striped bordered hover>
           <thead>
             <tr>
