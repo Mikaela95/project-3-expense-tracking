@@ -5,11 +5,12 @@ import Button from "react-bootstrap/Button";
 import * as Icon from "react-bootstrap-icons";
 import { AddExpense } from "./AddExpense";
 import { DeleteExpense } from "./DeleteExpense";
+import { EditExpense } from "./EditExpense";
 
 const CategoryItem = ({ match }) => {
   const [category, setCategory] = useState([]);
   const [active, setActive] = useState("");
-  const [expenseData, setExpenseData] = useState({id: ''});
+  const [expenseData, setExpenseData] = useState({ id: "" });
 
   useEffect(() => {
     fetchCategory();
@@ -51,7 +52,7 @@ const CategoryItem = ({ match }) => {
   const handleDelete = (e) => {
     e.preventDefault();
     setActive("delete");
-    setExpenseData({id: e.currentTarget.value});
+    setExpenseData({ id: e.currentTarget.value });
   };
 
   const renderExpenseItems = () => {
@@ -64,6 +65,7 @@ const CategoryItem = ({ match }) => {
         <Button
           variant="warning"
           style={{ margin: "0rem 1rem" }}
+          value={expense._id}
           onClick={() => setActive("edit")}
         >
           <Icon.Pencil />
@@ -80,8 +82,12 @@ const CategoryItem = ({ match }) => {
       <h1>Category: {category.name}</h1>
       <p>{category.description}</p>
       <div>
-        Add a new expense item{" "}
-        <Button variant="primary" onClick={() => setActive("add")}>
+        Add a new expense item:{" "}
+        <Button
+          variant="primary"
+          style={{ marginLeft: "1rem", marginBottom: "1rem" }}
+          onClick={() => setActive("add")}
+        >
           <Icon.Plus />
         </Button>
       </div>
@@ -90,6 +96,13 @@ const CategoryItem = ({ match }) => {
         {active === "add" && <AddExpense data={match.params.id} />}
         {active === "delete" && (
           <DeleteExpense
+            data={match.params.id}
+            setModalShow={true}
+            expenseData={expenseData}
+          />
+        )}
+        {active === "edit" && (
+          <EditExpense
             data={match.params.id}
             setModalShow={true}
             expenseData={expenseData}

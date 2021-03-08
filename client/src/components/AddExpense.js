@@ -7,9 +7,10 @@ import Button from "react-bootstrap/Button";
 const AddExpense = (props) => {
   const [formState, setFormState] = useState({
     name: "",
-    projectedExpense: null,
-    actualExpense: null,
+    projectedExpense: 0,
+    actualExpense: 0,
   });
+  
   const [expensesList, setExpensesList] = useState([]);
 
   const handleExpenseFormSubmit = (name, estimated, actual, category) => {
@@ -19,8 +20,9 @@ const AddExpense = (props) => {
       name: name,
       projectedExpense: estimated,
       actualExpense: actual,
-      categoryId: category
+      categoryId: category,
     };
+    
 
     const newExpenses = [...expensesList];
     newExpenses.push(newExpense);
@@ -34,6 +36,7 @@ const AddExpense = (props) => {
       body: JSON.stringify(newExpense),
     }).then((response) => {
       console.log("use clases: response:", response);
+      window.location.reload(false);
     });
   };
 
@@ -47,12 +50,17 @@ const AddExpense = (props) => {
     console.log("handle submit test");
     console.log(props);
     e.preventDefault();
-    handleExpenseFormSubmit(formState.name, formState.projectedExpense, formState.actualExpense, props.data);
+    handleExpenseFormSubmit(
+      formState.name,
+      formState.projectedExpense,
+      formState.actualExpense,
+      props.data
+    );
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Row>
+      <Form.Row style={{ margin: "20px -5px" }}>
         <Col xs={7}>
           <Form.Control
             placeholder="Expense Item"

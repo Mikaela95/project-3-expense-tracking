@@ -20,6 +20,7 @@ const DeleteExpense = (props) => {
       body: JSON.stringify(expense),
     }).then((response) => {
       console.log("DELETE response:", response);
+      window.location.reload(false);
     });
   };
 
