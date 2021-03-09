@@ -33,7 +33,7 @@ router.post("/new-expense", (req, res) => {
 });
 
 // Update an expense - need to test
-router.patch("/update-expense/:id", (req, res) => {
+router.put("/update-expense/:id", (req, res) => {
   ExpenseApi.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     upsert: true,

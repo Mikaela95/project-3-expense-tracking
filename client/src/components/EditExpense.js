@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -12,35 +12,43 @@ const EditExpense = (props) => {
     projectedExpense: 0,
     actualExpense: 0,
   });
-  //console.log(props.expenseData);
+  console.log(props.expenseData);
 
   const handleInputChange = (e) => {
-    e.preventDefault();
-    const newState = { ...formState }
+    // e.preventDefault();
+    const newState = { ...formState };
     newState[e.target.name] = e.target.value;
     setFormState(newState);
-  }
+  };
 
   const handleSubmit = (e) => {
     //e.preventDefault();
-    console.log("handleSubmit");
-    console.log(props.expenseData.id);
-    handleEditExpense(props.expenseData.id);
+    /* console.log("handleSubmit");
+    console.log("Form information:", formState);
+    console.log(props.expenseData.id); */
+    handleEditExpense(props.expenseData.id, formState);
   };
 
-  const handleEditExpense = (expense) => {
-    console.log("handleEditExpense:", expense);
+  const handleEditExpense = (expense, newData) => {
+    /* console.log("handleEditExpense:", expense);
+
     const foundExpense = expensesList.findIndex((expenseEl) => {
       console.log("expenseEl:", expenseEl);
       return expenseEl._id === expense._id;
     });
-    console.log("foundExpense:", foundExpense);
+    console.log("foundExpense:", foundExpense); */
+
     const newExpenses = [...expensesList];
-    newExpenses[foundExpense] = expense;
+    newExpenses[expense] = newData;
     setExpensesList(newExpenses);
-    fetch(`http://localhost:4000/api/expenses/update-expense/${expense._id}`, {
+    //console.log(formState);
+
+    fetch(`http://localhost:4000/api/expenses/update-expense/${expense}`, {
       method: "PUT",
-      body: JSON.stringify(expense),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newData),
     }).then((response) => {
       console.log("PUT response:", response);
     });

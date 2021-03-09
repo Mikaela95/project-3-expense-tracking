@@ -55,6 +55,12 @@ const CategoryItem = ({ match }) => {
     setExpenseData({ id: e.currentTarget.value });
   };
 
+  const handleEdit = (e) => {
+    e.preventDefault();
+    setActive("edit");
+    setExpenseData({ id: e.currentTarget.value });
+  }
+
   const renderExpenseItems = () => {
     return expenses.map((expense) => (
       <tr>
@@ -66,7 +72,7 @@ const CategoryItem = ({ match }) => {
           variant="warning"
           style={{ margin: "0rem 1rem" }}
           value={expense._id}
-          onClick={() => setActive("edit")}
+          onClick={handleEdit}
         >
           <Icon.Pencil />
         </Button>
