@@ -1,11 +1,32 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 
 const DeleteExpense = (props) => {
   const [modalShow, setModalShow] = useState(props.setModalShow);
-  const [expensesList, setExpensesList] = useState([]);
+  const [show, setShow] = useState(false);
+  /* const [expensesList, setExpensesList] = useState([]); */
   //console.log(props.expenseData);
+
+  const successNotification = () => {
+    return (
+      <Alert show={show} variant="success">
+        <Alert.Heading>How's it going?!</Alert.Heading>
+        <p>
+          Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget
+          lacinia odio sem nec elit. Cras mattis consectetur purus sit amet
+          fermentum.
+        </p>
+        <hr />
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => setShow(false)} variant="outline-success">
+            Close me y'all!
+          </Button>
+        </div>
+      </Alert>
+    );
+  };
 
   const handleSubmit = (e) => {
     //e.preventDefault();
@@ -39,8 +60,7 @@ const DeleteExpense = (props) => {
         </Modal.Header>
         <Modal.Body>
           <p>
-            Are you sure you want to delete this expense: (expense item to
-            come). This cannot be undone.
+            Are you sure you want to delete this expense. This cannot be undone.
           </p>
         </Modal.Body>
         <Modal.Footer>

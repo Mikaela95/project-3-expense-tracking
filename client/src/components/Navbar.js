@@ -10,9 +10,9 @@ const NavBarComponent = () => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="/">Categories</Nav.Link>
-          <Nav.Link href="/create">..Create</Nav.Link>
+          {/* <Nav.Link href="/create">..Create</Nav.Link>
           <Nav.Link href="/edit">..Edit</Nav.Link>
-          <Nav.Link href="/delete">..Delete</Nav.Link>
+          <Nav.Link href="/delete">..Delete</Nav.Link> */}
         </Nav>
         <Nav>
           <Nav.Link href="/logout">Log out</Nav.Link>

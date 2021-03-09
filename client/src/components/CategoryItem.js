@@ -11,6 +11,7 @@ const CategoryItem = ({ match }) => {
   const [category, setCategory] = useState([]);
   const [active, setActive] = useState("");
   const [expenseData, setExpenseData] = useState({ id: "" });
+  console.log(match);
 
   useEffect(() => {
     fetchCategory();
@@ -59,7 +60,7 @@ const CategoryItem = ({ match }) => {
     e.preventDefault();
     setActive("edit");
     setExpenseData({ id: e.currentTarget.value });
-  }
+  };
 
   const renderExpenseItems = () => {
     return expenses.map((expense) => (

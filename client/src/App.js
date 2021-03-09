@@ -11,7 +11,7 @@ import { DeleteExpense } from "./components/DeleteExpense.js";
 const App = () => {
   return (
     <Router>
-      <div className="App">
+      <div className="App" style={{backgroundColor: '#e9ecef'}}>
         <NavBarComponent />
         <Jumbotron style={{ marginBottom: "auto" }}>
           <Route path="/" exact component={ExpenseList} />
@@ -25,35 +25,4 @@ const App = () => {
   );
 };
 
-// const category = {
-//   title: "Food",
-//   id: "1"
-
-// }
-// const App = () => {
-
-//   const fetchInfo = (categoryID) => {
-//     // actually fetch stuff here instead
-//     return [{
-//     id: 1,
-//     amt: 100
-//       }]
-//   }
-//   return (
-//     <Router>
-//       <div className="App">
-//         <ExpenseListNew categoryTitle={category.title} categoryId={category.id} expenses={[{
-//           id: 1,
-//           amt: 10
-//         }]}></ExpenseListNew>
-//       </div>
-//     </Router>
-//   );
-// };
-
 export { App };
-
-/*
-Need to change the url paths - following example for now
-
-*/

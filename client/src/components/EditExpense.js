@@ -5,39 +5,28 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 
 const EditExpense = (props) => {
-  const [modalShow, setModalShow] = useState(props.setModalShow);
-  const [expensesList, setExpensesList] = useState([]);
+  const [modalShow, setModalShow] = useState(true);
   const [formState, setFormState] = useState({
     name: "",
-    projectedExpense: 0,
-    actualExpense: 0,
+    projectedExpense: "",
+    actualExpense: "",
   });
-  console.log(props.expenseData);
+  const [expensesList, setExpensesList] = useState([]);
 
   const handleInputChange = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     const newState = { ...formState };
     newState[e.target.name] = e.target.value;
     setFormState(newState);
   };
 
   const handleSubmit = (e) => {
-    //e.preventDefault();
-    /* console.log("handleSubmit");
-    console.log("Form information:", formState);
-    console.log(props.expenseData.id); */
+    window.location.reload();
+    setModalShow(false);
     handleEditExpense(props.expenseData.id, formState);
   };
 
   const handleEditExpense = (expense, newData) => {
-    /* console.log("handleEditExpense:", expense);
-
-    const foundExpense = expensesList.findIndex((expenseEl) => {
-      console.log("expenseEl:", expenseEl);
-      return expenseEl._id === expense._id;
-    });
-    console.log("foundExpense:", foundExpense); */
-
     const newExpenses = [...expensesList];
     newExpenses[expense] = newData;
     setExpensesList(newExpenses);
@@ -68,7 +57,7 @@ const EditExpense = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmit}>
+          <Form>
             <Form.Row style={{ margin: "20px -5px" }}>
               <Col xs={7}>
                 <Form.Control
@@ -82,7 +71,7 @@ const EditExpense = (props) => {
               <Col>
                 <Form.Control
                   placeholder="Estimated"
-                  name="estimated"
+                  name="projectedExpense"
                   value={formState.projectedExpense}
                   onChange={handleInputChange}
                   required
@@ -91,7 +80,7 @@ const EditExpense = (props) => {
               <Col>
                 <Form.Control
                   placeholder="Actual"
-                  name="actual"
+                  name="actualExpense"
                   value={formState.actualExpense}
                   onChange={handleInputChange}
                   required
