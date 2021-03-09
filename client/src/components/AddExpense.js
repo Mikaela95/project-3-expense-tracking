@@ -7,13 +7,14 @@ import Button from "react-bootstrap/Button";
 const AddExpense = (props) => {
   const [formState, setFormState] = useState({
     name: "",
-    projectedExpense: 0,
-    actualExpense: 0,
+    projectedExpense: "",
+    actualExpense: "",
   });
   
   const [expensesList, setExpensesList] = useState([]);
 
   const handleExpenseFormSubmit = (name, estimated, actual, category) => {
+    
     console.log("expense form submit test");
 
     const newExpense = {
@@ -23,7 +24,6 @@ const AddExpense = (props) => {
       categoryId: category,
     };
     
-
     const newExpenses = [...expensesList];
     newExpenses.push(newExpense);
     setExpensesList(newExpenses);
@@ -36,7 +36,7 @@ const AddExpense = (props) => {
       body: JSON.stringify(newExpense),
     }).then((response) => {
       console.log("use clases: response:", response);
-      window.location.reload(false);
+      window.location.reload(false); 
     });
   };
 
@@ -47,8 +47,8 @@ const AddExpense = (props) => {
   };
 
   const handleSubmit = (e) => {
-    console.log("handle submit test");
-    console.log(props);
+    /* console.log("handle submit test");
+    console.log(props); */
     e.preventDefault();
     handleExpenseFormSubmit(
       formState.name,
@@ -73,7 +73,7 @@ const AddExpense = (props) => {
         <Col>
           <Form.Control
             placeholder="Estimated"
-            name="estimated"
+            name="projectedExpense"
             value={formState.projectedExpense}
             onChange={handleInputChange}
             required
@@ -82,7 +82,7 @@ const AddExpense = (props) => {
         <Col>
           <Form.Control
             placeholder="Actual"
-            name="actual"
+            name="actualExpense"
             value={formState.actualExpense}
             onChange={handleInputChange}
             required
